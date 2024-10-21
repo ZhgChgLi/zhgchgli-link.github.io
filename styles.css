@@ -1,98 +1,112 @@
 /* Reset styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Full-screen background with a subtle pattern */
-  body {
-    background: #0a0a0a;
-    font-family: 'Arial', sans-serif;
-    overflow: hidden;
-    color: #f5f5f5;
-  }
-  
-  /* Main content container */
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  /* Title styling */
-  .title {
-    cursor: default;
-    font-size: 50px;
-    letter-spacing: 4px;
-    margin-bottom: 10px;
-    color: #fff;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-  }
-  
-  /* Subtitle styling */
-  .subtitle {
-    cursor: default;
-    font-size: 18px;
-    margin-bottom: 30px;
-    color: #999;
-  }
-  
-  /* Links container */
-  .links {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  /* Link buttons styling */
-  .link-button {
-    background: linear-gradient(135deg, #222, #444);
-    border: 1px solid #999;
-    padding: 20px 120px;
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-    letter-spacing: 1px;
-    text-align: center;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Button hover effect */
-  .link-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease-in-out;
-  }
-  
-  .link-button:hover::before {
-    transform: scaleX(1);
-  }
-  
-  .link-button:hover {
-    border-color: #f5f5f5;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-  }
-  
-  /* Footer styling */
-  footer {
-    cursor: default;
-    margin-top: 30px;
-    font-size: 14px;
-    color: #777;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure the body allows scrolling */
+html, body {
+  height: 100%;
+  overflow-y: auto;
+  background: #0a0a0a;
+  font-family: 'Arial', sans-serif;
+  color: #f5f5f5;
+}
+
+/* Container allows scrolling when content exceeds */
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 15px; /* Adds space between elements */
+}
+
+/* Title styling */
+.title {
+  font-size: 50px;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Subtitle styling */
+.subtitle {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #999;
+}
+
+/* Links container with spacing */
+.links {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Link button styling */
+.link-button {
+  background: linear-gradient(135deg, #1e1e1e, #3c3c3c);
+  border: 1px solid #555;
+  padding: 15px;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.link-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+}
+
+.link-button:hover::before {
+  transform: scaleX(1);
+}
+
+.link-button:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Donate button with softer colors */
+.donate-button {
+  background: linear-gradient(135deg, #333, #555);
+  color: #e0e0e0;
+  font-size: 22px;
+  padding: 18px;
+  text-align: center;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(160, 160, 160, 0.6);
+}
+
+.donate-button:hover {
+  box-shadow: 0 0 20px rgba(160, 160, 160, 1);
+}
+
+/* Footer styling */
+footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #777;
+  text-align: center;
+}
