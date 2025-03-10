@@ -17,6 +17,7 @@ plugins:
   # Automatically fetch Github repo star count
   - GithubRepoStarsCountPlugin:
       - ZhgChgLi/ZMarkupParser
+      - ZhgChgLi/XCFolder
       - ZhgChgLi/ZReviewTender
       - ZhgChgLi/ZMediumToMarkdown
       - ZhgChgLi/linkyee
