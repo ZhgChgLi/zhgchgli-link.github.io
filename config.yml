@@ -75,6 +75,13 @@ links:
       title: "ZMarkupParser is a pure-Swift library that helps you to convert HTML strings to NSAttributedString with customized style and tags."
       target: "_blank"
   - link:
+      icon: "fa-brands fa-swift"
+      text: "XCFolder <span class='link-button-text'>({{vars.GithubRepoStarsCountPlugin['ZhgChgLi/XCFolder']}} Stars)</span>"
+      url: "https://github.com/ZhgChgLi/XCFolder"
+      alt: "XCFolder is a powerful command-line tool that converts Xcode virtual groups into actual directories, reorganizing your project structure to align with Xcode groups and enabling seamless integration with modern Xcode project generation tools like Tuist and XcodeGen."
+      title: "XCFolder is a powerful command-line tool that converts Xcode virtual groups into actual directories, reorganizing your project structure to align with Xcode groups and enabling seamless integration with modern Xcode project generation tools like Tuist and XcodeGen."
+      target: "_blank"
+  - link:
       icon: "fa-brands fa-app-store-ios"
       text: "ZReviewTender <span class='link-button-text'>({{vars.GithubRepoStarsCountPlugin['ZhgChgLi/ZReviewTender']}} Stars)</span>"
       url: "https://github.com/ZhgChgLi/ZReviewTender"
