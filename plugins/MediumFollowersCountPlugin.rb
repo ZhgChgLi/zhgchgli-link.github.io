@@ -12,7 +12,7 @@ class MediumFollowersCountPlugin < Plugin
     end
 
     def execute
-        return load_medium_followers("https://medium.com/@#{@username}")
+        return load_medium_followers("https://medium.com/@#{@username}/followers")
     end
 
 
@@ -24,14 +24,14 @@ class MediumFollowersCountPlugin < Plugin
         case response
         when Net::HTTPSuccess then
             document = Nokogiri::HTML(response.body)
-
-            follower_count_element = document.at('span.pw-follower-count > a')
-            follower_count = follower_count_element&.text&.split(' ')&.first
-
-            return follower_count || 0
+            document.css('h2').each do |h2|
+                if h2.text.strip.downcase.end_with?('followers')
+                    return h2.text.strip.sub(/followers\z/i, '').strip
+                end
+            end
         when Net::HTTPRedirection then
-          location = response['location']
-          return load_medium_followers(location, limit - 1)
+            location = response['location']
+            return self._getFollowers(location, limit - 1)
         else
             return 0
         end
