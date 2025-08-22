@@ -31,7 +31,7 @@ class MediumFollowersCountPlugin < Plugin
             end
         when Net::HTTPRedirection then
             location = response['location']
-            return self._getFollowers(location, limit - 1)
+            return self.load_medium_followers(location, limit - 1)
         else
             return 0
         end
