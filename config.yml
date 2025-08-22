@@ -105,12 +105,6 @@ links:
 # target: _blank opens in a new tab, _self opens in the same frame
 socials:
   - social:
-      icon: "fa-brands fa-medium"
-      url: "https://blog.zhgchg.li"
-      title: "ZhgChgLi's Medium"
-      alt: "ZhgChgLi's Medium"
-      target: "_blank"
-  - social:
       icon: "fa-brands fa-github"
       url: "https://github.com/ZhgChgLi"
       title: "ZhgChgLi's GitHub"
@@ -118,21 +112,15 @@ socials:
       target: "_blank"
   - social:
       icon: "fa-brands fa-twitter"
-      url: "https://twitter.com/zhgchgli"
-      title: "ZhgChgLi's Twitter"
-      alt: "ZhgChgLi's Twitter"
+      url: "https://x.com/zhgchgli"
+      title: "ZhgChgLi's X (Twitter)"
+      alt: "ZhgChgLi's X (Twitter)"
       target: "_blank"
   - social:
       icon: "fa-brands fa-linkedin"
       url: "https://www.linkedin.com/in/zhgchgli/"
       title: "ZhgChgLi's LinkedIn"
       alt: "ZhgChgLi's LinkedIn"
-      target: "_blank"
-  - social:
-      icon: "fa-brands fa-instagram"
-      url: "https://www.instagram.com/zhgchgli/"
-      title: "Instagram"
-      alt: "ZhgChgLi's Instagram"
       target: "_blank"
   - social:
       icon: "fa-solid fa-envelope"
@@ -148,4 +136,4 @@ footer: >
 # Footer copyright message
 # Linkyee is a 100% free, open-source project—feel free to modify the copyright message as you like. :)
 copyright: >
-  © 2024  <a href="https://zhgchg.li" target="_blank">ZhgChgLi</a>. Powered by <a href="https://github.com/ZhgChgLi/linkyee" target="_blank">linkyee</a>
+  © 2025  <a href="https://zhgchg.li" target="_blank">ZhgChgLi</a>. Powered by <a href="https://github.com/ZhgChgLi/linkyee" target="_blank">linkyee</a>
