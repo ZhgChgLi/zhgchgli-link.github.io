@@ -48,21 +48,14 @@ tagline: >-
 links:
   - link:
       icon: "fa-brands fa-medium"
-      text: "Tech Blog <span class='link-button-text'>({{vars.MediumFollowersCountPlugin}} Followers)</span>"
+      text: "Medium <span class='link-button-text'>({{vars.MediumFollowersCountPlugin}} Followers)</span>"
       url: "https://blog.zhgchg.li"
       alt: "ZhgChgLi's Tech Blog"
       title: "ZhgChgLi's Tech Blog"
       target: "_blank"
   - link:
-      icon: "fa-brands fa-medium"
-      text: "Travelog <span class='link-button-text'>({{vars.MediumFollowersCountPlugin}} Followers)</span>"
-      url: "https://medium.com/ztravel"
-      alt: "ZhgChgLi's Travelog"
-      title: "ZhgChgLi's Travelog"
-      target: "_blank"
-  - link:
       icon: "fa-solid fa-rss"
-      text: "Website"
+      text: "Blog"
       url: "https://zhgchg.li/"
       alt: "ZhgChgLi's Website"
       title: "ZhgChgLi's Website"
