@@ -17,12 +17,14 @@ class MediumFollowersCountPlugin < Plugin
 
 
     def load_medium_followers(url, limit = 10)
+        puts url
         return 0 if limit.zero?
 
         uri = URI(url)
         response = Net::HTTP.get_response(uri)
         case response
         when Net::HTTPSuccess then
+            puts response.body
             document = Nokogiri::HTML(response.body)
             document.css('h2').each do |h2|
                 if h2.text.strip.downcase.end_with?('followers')
