@@ -21,8 +21,13 @@ class MediumFollowersCountPlugin < Plugin
         return 0 if limit.zero?
 
         uri = URI(url)
-        response = Net::HTTP.get_response(uri)
-
+        request = Net::HTTP::Get.new(uri)
+        
+        request["Cookie"] = "uid=#{ENV['MEDIUM_COOKIE_UID']}; sid=#{ENV['MEDIUM_COOKIE_SID']}"
+        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
+            http.request(request)
+        end
+    
         puts response.body
         
         case response
