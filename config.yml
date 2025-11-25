@@ -48,7 +48,7 @@ tagline: >-
 links:
   - link:
       icon: "fa-brands fa-medium"
-      text: "Medium <span class='link-button-text'>({{vars.MediumFollowersCountPlugin}} Followers)</span>"
+      text: "Medium <span class='link-button-text'>(1K+ Followers)</span>"
       url: "https://blog.zhgchg.li"
       alt: "ZhgChgLi's Tech Blog"
       title: "ZhgChgLi's Tech Blog"
