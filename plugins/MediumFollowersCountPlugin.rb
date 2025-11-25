@@ -22,9 +22,11 @@ class MediumFollowersCountPlugin < Plugin
 
         uri = URI(url)
         response = Net::HTTP.get_response(uri)
+
+        puts response.body
+        
         case response
         when Net::HTTPSuccess then
-            puts response.body
             document = Nokogiri::HTML(response.body)
             document.css('h2').each do |h2|
                 if h2.text.strip.downcase.end_with?('followers')
