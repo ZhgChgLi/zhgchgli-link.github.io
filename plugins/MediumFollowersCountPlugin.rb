@@ -21,6 +21,7 @@ class MediumFollowersCountPlugin < Plugin
 
         uri = URI(url)
         response = Net::HTTP.get_response(uri)
+        puts response.body
         
         case response
         when Net::HTTPSuccess then
