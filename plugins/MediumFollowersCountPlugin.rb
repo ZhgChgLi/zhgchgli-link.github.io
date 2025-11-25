@@ -12,23 +12,15 @@ class MediumFollowersCountPlugin < Plugin
     end
 
     def execute
-        return load_medium_followers("https://medium.com/@#{@username}/followers")
+        return load_medium_followers("https://blog.zhgchg.li/followers")
     end
 
 
     def load_medium_followers(url, limit = 10)
-        puts url
         return 0 if limit.zero?
 
         uri = URI(url)
-        request = Net::HTTP::Get.new(uri)
-        
-        request["Cookie"] = "uid=#{ENV['MEDIUM_COOKIE_UID']}; sid=#{ENV['MEDIUM_COOKIE_SID']}"
-        response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
-            http.request(request)
-        end
-    
-        puts response.body
+        response = Net::HTTP.get_response(uri)
         
         case response
         when Net::HTTPSuccess then
