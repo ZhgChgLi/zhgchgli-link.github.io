@@ -31,6 +31,7 @@ jobs:
       - name: Deploy
         run: bash deploy.sh
         env:
+          MEDIUM_HOST: "${{ secrets.MEDIUM_HOST }}"
           MEDIUM_COOKIE_UID: "${{ secrets.MEDIUM_COOKIE_UID }}"
           MEDIUM_COOKIE_SID: "${{ secrets.MEDIUM_COOKIE_SID }}"
           
