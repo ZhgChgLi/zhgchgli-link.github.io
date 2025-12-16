@@ -55,7 +55,7 @@ links:
       target: "_blank"
   - link:
       icon: "fa-solid fa-rss"
-      text: "Blog (1M+ Visitors)"
+      text: "Blog <span class='link-button-text'>(1M+ Visitors)</span>"
       url: "https://zhgchg.li/"
       alt: "ZhgChgLi's Website"
       title: "ZhgChgLi's Website"
