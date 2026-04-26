@@ -2,19 +2,14 @@
 <html lang="{{ lang }}">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>{{ title }}</title>
 
-  <meta charset="UTF-8">
   <meta name="last-modified" content="{{ last_modified_at }}">
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3efe7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e0f12">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta
-    name="viewport"
-    content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover"
-  >
 
   <meta property="og:title" content="{{ title }}" />
   <meta name="author" content="{{ name }}" />
@@ -37,56 +32,93 @@
   <meta name="application-name" content="{{ title }}">
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="msapplication-config" content="./images/favicons/browserconfig.xml">
-  <meta name="theme-color" content="#ffffff">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="container">
-    <div class="profile">
-      <img src="{{ avatar }}" alt="Profile Picture" class="profile-pic" />
-      <h1 class="name">{{ name }}</h1>
-      <p class="description">{{ tagline }}</p>
-    </div>
+  <main class="page">
+    <header class="masthead">
+      <div class="masthead-meta mono">
+        <span>VOL. 01 · LINKS</span>
+        <span>{{ last_modified_at | slice: 0, 10 }}</span>
+      </div>
+      <div class="masthead-head">
+        <img src="{{ avatar }}" alt="{{ name }}" class="masthead-avatar" />
+        <div class="masthead-headline">
+          <h1 class="masthead-name serif">{{ name }}</h1>
+        </div>
+      </div>
+      <p class="masthead-bio">{{ tagline }}</p>
+    </header>
 
-    <div class="links">
-      {% for item in links %}
-        {% assign link = item.link %}
-        <a href="{{ link.url }}" target="{{ link.target }}" class="link-button" alt="{{ link.alt }}" title="{{ link.title }}">
-          <i class="{{ link.icon }}"></i> {{ link.text }}
-        </a>
-      {% endfor %}
-    </div>
-
-    <div class="button-container">
-      <div class="button-group">
-        {% for item in socials %}
-          {% assign social = item.social %}
-          <a href="{{ social.url }}" title="{{ social.title }}" target="{{ social.target }}" class="icon-button" alt="{{ social.alt }}">
-            <i class="{{ social.icon }}"></i>
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-label mono">01 / Links</h2>
+        <span class="section-count mono">{{ links.size | prepend: '00' | slice: -2, 2 }} ENTRIES</span>
+      </div>
+      <div class="links">
+        {% for item in links %}
+          {% assign link = item.link %}
+          <a href="{{ link.url }}" target="{{ link.target }}" class="link-row" alt="{{ link.alt }}" title="{{ link.title }}">
+            <span class="link-row-index mono">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>
+            <div class="link-row-body">
+              <div class="link-row-title">
+                <i class="{{ link.icon }}"></i>
+                <span>{{ link.text }}</span>
+              </div>
+            </div>
+            <span class="link-row-arrow">→</span>
           </a>
         {% endfor %}
       </div>
-    </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-label mono">02 / Connect</h2>
+        <span class="section-count mono">{{ socials.size | prepend: '00' | slice: -2, 2 }} ENTRIES</span>
+      </div>
+      <div class="socials">
+        {% for item in socials %}
+          {% assign social = item.social %}
+          <a href="{{ social.url }}" title="{{ social.title }}" target="{{ social.target }}" class="social-cell" alt="{{ social.alt }}">
+            <span class="social-cell-label">
+              <i class="{{ social.icon }}"></i>
+              <span>{{ social.title }}</span>
+            </span>
+            <span class="social-cell-arrow">→</span>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <a href="https://www.paypal.com/ncp/payment/CMALMPT8UUTY2" target="_blank" rel="noopener" class="tipjar">
+      <div>
+        <div class="tipjar-title serif">Buy me a beer 🍺</div>
+        <div class="tipjar-sub">If something here saved you an afternoon.</div>
+      </div>
+      <span class="tipjar-cta">PayPal →</span>
+    </a>
 
     <footer class="footer">
-      <a href="https://www.paypal.com/ncp/payment/CMALMPT8UUTY2" target="_blank" rel="noopener" style="display: block; margin: 12px 0px; text-align: center; align-items: center; justify-content: center; padding: 10px 22px; border-radius: 999px; text-decoration: none; background: linear-gradient(135deg, rgb(255, 213, 79), rgb(255, 179, 0)); color: rgb(0, 0, 0); font-size: 16px; font-weight: 700; font-family: system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 10px; cursor: pointer; transition: 0.15s; width: 100%; transform: translateY(0px);" onmouseover="if (!window.__cfRLUnblockHandlers) return false; this.style.background=&quot;linear-gradient(135deg,#FFE082,#FFC107)&quot;,this.style.transform=&quot;translateY(-1px)&quot;,this.style.boxShadow=&quot;0 6px 14px rgba(0,0,0,0.2)&quot;" onmouseout="if (!window.__cfRLUnblockHandlers) return false; this.style.background=&quot;linear-gradient(135deg,#FFD54F,#FFB300)&quot;,this.style.transform=&quot;translateY(0)&quot;,this.style.boxShadow=&quot;0 4px 10px rgba(0,0,0,0.15)&quot;">🍺 Buy me a beer on PayPal</a>
-      <br/>
-      <br/>
-      {{ footer }}
-      <div class="copyright">{{ copyright }}</div>
+      <div class="footer-text">{{ footer }}</div>
+      <div class="footer-meta mono">
+        <span>{{ copyright }}</span>
+      </div>
     </footer>
-  </div>
+  </main>
+
   <script src="fontawesome/js/all.js" data-auto-replace-svg="nest"></script>
   {% if google_analytics_id %}
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', '{{ google_analytics_id }}');
     </script>
   {% endif %}

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@zhgchgli — Links</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  :root {
+    --bg: #f3efe7;
+    --bg-2: #ebe6db;
+    --ink: #1a1815;
+    --ink-2: #4a443c;
+    --muted: #8a8175;
+    --rule: #d8cfbf;
+    --rule-strong: #1a1815;
+    --accent: oklch(58% 0.13 38);   /* warm terra */
+    --accent-2: oklch(58% 0.13 145); /* mossy green */
+    --card: #ffffff;
+    --shadow: 0 1px 0 rgba(26,24,21,0.06), 0 8px 24px -16px rgba(26,24,21,0.18);
+  }
+  [data-theme="midnight"] {
+    --bg: #0e0f12;
+    --bg-2: #15171c;
+    --ink: #ecead8;
+    --ink-2: #b8b6a4;
+    --muted: #6f6e62;
+    --rule: #26282f;
+    --rule-strong: #ecead8;
+    --accent: oklch(72% 0.15 75);
+    --accent-2: oklch(72% 0.13 175);
+    --card: #181a20;
+    --shadow: 0 1px 0 rgba(0,0,0,0.4), 0 12px 32px -18px rgba(0,0,0,0.6);
+  }
+  [data-theme="paper"] {
+    --bg: #faf7f0;
+    --bg-2: #f3eee3;
+    --ink: #161514;
+    --ink-2: #3a3631;
+    --muted: #9a9183;
+    --rule: #e2dccb;
+    --rule-strong: #161514;
+    --accent: oklch(50% 0.15 28);
+    --accent-2: oklch(50% 0.13 240);
+    --card: #ffffff;
+  }
+  [data-theme="zinc"] {
+    --bg: #ededed;
+    --bg-2: #e4e4e3;
+    --ink: #111111;
+    --ink-2: #444444;
+    --muted: #888888;
+    --rule: #d0d0d0;
+    --rule-strong: #111111;
+    --accent: oklch(55% 0.18 260);
+    --accent-2: oklch(55% 0.18 320);
+    --card: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+  .serif { font-family: 'Fraunces', Georgia, serif; }
+
+  /* Texture overlay */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.5;
+    z-index: 0;
+    mix-blend-mode: multiply;
+  }
+  [data-theme="midnight"] body::before { mix-blend-mode: screen; opacity: 0.15; }
+
+  .page { position: relative; z-index: 1; }
+</style>
+</head>
+<body data-theme="paper">
+  <div id="root"></div>
+
+  <script type="text/babel" data-presets="env,react">
+const { useState, useEffect, useRef } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "paper",
+  "layout": "editorial",
+  "showCounts": true,
+  "showStatus": true,
+  "monoNumerals": true,
+  "accent": "terra"
+}/*EDITMODE-END*/;
+
+const PROFILE = {
+  handle: "@zhgchgli",
+  name: "ZhgChgLi",
+  role: "iOS · Web · Automation",
+  location: "Taipei, Taiwan",
+  bio: "Building tools, writing about engineering, traveling between commits.",
+  status: "Open to interesting collaborations",
+  avatar: "assets/profile.jpeg"
+};
+
+const LINKS = [
+  { id: "medium", label: "Medium", kind: "Writing", meta: "1,057+ followers", n: "1,057", url: "https://blog.zhgchg.li/", primary: true, icon: "M" },
+  { id: "blog", label: "Blog", kind: "Writing", meta: "120+ posts", n: "120", url: "https://zhgchg.li/", primary: true, icon: "✦" },
+  { id: "travel", label: "Travelogue", kind: "Writing", meta: "10+ posts · 度旅行遊記", n: "10", url: "https://zhgchg.li/categories/z-%E5%BA%A6%E6%97%85%E8%A1%8C%E9%81%8A%E8%A8%98/", primary: true, icon: "▲" },
+  { id: "zmark", label: "ZMarkupParser", kind: "Open Source · Swift", meta: "Pure-Swift HTML → NSAttributedString", n: "362", url: "https://github.com/ZhgChgLi/ZMarkupParser", icon: "{ }" },
+  { id: "xcf", label: "XCFolder", kind: "Open Source · Swift", meta: "Xcode virtual groups → real folders", n: "79", url: "https://github.com/ZhgChgLi/XCFolder", icon: "{ }" },
+  { id: "zrev", label: "ZReviewTender", kind: "Open Source · Ruby", meta: "App Store + Play Console review pipeline", n: "60", url: "https://github.com/ZhgChgLi/ZReviewTender", icon: "{ }" },
+  { id: "zmd", label: "ZMediumToMarkdown", kind: "Open Source · Ruby", meta: "Export your Medium posts to Markdown", n: "50", url: "https://github.com/ZhgChgLi/ZMediumToMarkdown", icon: "{ }" },
+  { id: "linkyee", label: "linkyee", kind: "Open Source · This page", meta: "Self-hosted Linktree on GitHub Pages", n: "138", url: "https://github.com/ZhgChgLi/linkyee", icon: "{ }" },
+];
+
+const SOCIALS = [
+  { id: "github", label: "GitHub", url: "https://github.com/ZhgChgLi", handle: "/ZhgChgLi" },
+  { id: "x", label: "X", url: "https://x.com/zhgchgli", handle: "@zhgchgli" },
+  { id: "in", label: "LinkedIn", url: "https://www.linkedin.com/in/zhgchgli/", handle: "/in/zhgchgli" },
+  { id: "mail", label: "Email", url: "mailto:zhgchgli@gmail.com", handle: "zhgchgli@gmail.com" },
+];
+
+// === Layout: Editorial (default) ===
+function Editorial({ tweaks }) {
+  const writing = LINKS.filter(l => l.primary);
+  const oss = LINKS.filter(l => !l.primary);
+  return (
+    <div style={{ maxWidth: 640, margin: "0 auto", padding: "56px 28px 72px" }}>
+      {/* Masthead */}
+      <header style={{ borderTop: "2px solid var(--rule-strong)", borderBottom: "1px solid var(--rule)", padding: "14px 0 18px", marginBottom: 36 }}>
+        <div className="mono" style={{ display: "flex", justifyContent: "space-between", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ink-2)", marginBottom: 10 }}>
+          <span>VOL. 01 · LINKS</span>
+          <span>BORN. 1994</span>
+        </div>
+        <div style={{ display: "flex", gap: 18, alignItems: "flex-end" }}>
+          <img src={PROFILE.avatar} alt="" style={{ width: 84, height: 84, borderRadius: 4, objectFit: "cover", border: "1px solid var(--rule)" }} />
+          <div style={{ flex: 1, paddingBottom: 4 }}>
+            <h1 className="serif" style={{ margin: 0, fontSize: 44, lineHeight: 1, letterSpacing: "-0.02em", fontWeight: 600 }}>{PROFILE.handle}</h1>
+            <div className="mono" style={{ marginTop: 8, fontSize: 12, color: "var(--ink-2)", letterSpacing: "0.04em" }}>
+              {PROFILE.role.toUpperCase()} · {PROFILE.location.toUpperCase()} 🇹🇼
+            </div>
+          </div>
+        </div>
+        <p style={{ marginTop: 18, marginBottom: 0, fontSize: 16, lineHeight: 1.5, color: "var(--ink-2)", maxWidth: 460 }}>
+          {PROFILE.bio}
+        </p>
+        {tweaks.showStatus && (
+          <div className="mono" style={{ marginTop: 14, display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, color: "var(--ink-2)" }}>
+            <span style={{ width: 7, height: 7, borderRadius: 7, background: "var(--accent-2)", boxShadow: "0 0 0 3px color-mix(in oklch, var(--accent-2) 20%, transparent)" }} />
+            {PROFILE.status}
+          </div>
+        )}
+      </header>
+
+      {/* Section: Writing */}
+      <Section label="01 / Writing" count={writing.length}>
+        {writing.map((l, i) => <Row key={l.id} item={l} idx={i} tweaks={tweaks} />)}
+      </Section>
+
+      {/* Section: Open Source */}
+      <Section label="02 / Open Source" count={oss.length}>
+        {oss.map((l, i) => <Row key={l.id} item={l} idx={i + writing.length} tweaks={tweaks} compact />)}
+      </Section>
+
+      {/* Section: Connect */}
+      <Section label="03 / Connect" count={SOCIALS.length}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0, borderTop: "1px solid var(--rule)" }}>
+          {SOCIALS.map((s, i) => (
+            <a key={s.id} href={s.url} target="_blank" rel="noopener"
+               style={{
+                 padding: "16px 4px",
+                 borderBottom: "1px solid var(--rule)",
+                 borderRight: i % 2 === 0 ? "1px solid var(--rule)" : "none",
+                 textDecoration: "none",
+                 color: "var(--ink)",
+                 display: "flex",
+                 justifyContent: "space-between",
+                 alignItems: "center",
+                 paddingRight: i % 2 === 0 ? 18 : 4,
+                 paddingLeft: i % 2 === 0 ? 4 : 18,
+               }}>
+              <span style={{ fontSize: 15, fontWeight: 500 }}>{s.label}</span>
+              <span className="mono" style={{ fontSize: 11, color: "var(--muted)" }}>{s.handle} →</span>
+            </a>
+          ))}
+        </div>
+      </Section>
+
+      {/* Tip jar */}
+      <div style={{ marginTop: 40, padding: "20px 22px", border: "1px solid var(--rule)", borderRadius: 4, background: "var(--card)", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, boxShadow: "var(--shadow)" }}>
+        <div>
+          <div className="serif" style={{ fontSize: 18, fontWeight: 600 }}>Buy me a beer 🍺</div>
+          <div style={{ fontSize: 13, color: "var(--ink-2)", marginTop: 2 }}>If something here saved you an afternoon.</div>
+        </div>
+        <a href="https://www.paypal.com/ncp/payment/CMALMPT8UUTY2" target="_blank" rel="noopener"
+           style={{ padding: "10px 16px", background: "var(--ink)", color: "var(--bg)", textDecoration: "none", borderRadius: 999, fontSize: 13, fontWeight: 600, whiteSpace: "nowrap" }}>
+          PayPal →
+        </a>
+      </div>
+
+      {/* Footer */}
+      <footer className="mono" style={{ marginTop: 48, paddingTop: 18, borderTop: "1px solid var(--rule)", display: "flex", justifyContent: "space-between", fontSize: 11, color: "var(--muted)", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+        <span>© 2026 ZhgChgLi</span>
+        <span>Powered by linkyee</span>
+      </footer>
+    </div>
+  );
+}
+
+function Section({ label, count, children }) {
+  return (
+    <section style={{ marginBottom: 36 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 }}>
+        <h2 className="mono" style={{ margin: 0, fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 600, color: "var(--ink)" }}>
+          {label}
+        </h2>
+        <span className="mono" style={{ fontSize: 11, color: "var(--muted)" }}>{String(count).padStart(2, "0")} ENTRIES</span>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function Row({ item, idx, tweaks, compact }) {
+  const [hover, setHover] = useState(false);
+  return (
+    <a href={item.url} target="_blank" rel="noopener"
+       onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}
+       style={{
+         display: "grid",
+         gridTemplateColumns: "32px 1fr auto",
+         gap: 16,
+         alignItems: "center",
+         padding: compact ? "14px 0" : "18px 0",
+         borderTop: "1px solid var(--rule)",
+         borderBottom: idx === LINKS.length - 1 ? "1px solid var(--rule)" : "none",
+         textDecoration: "none",
+         color: "var(--ink)",
+         transition: "padding-left 0.18s ease, color 0.18s ease",
+         paddingLeft: hover ? 12 : 0,
+       }}>
+      <span className="mono" style={{ fontSize: 11, color: "var(--muted)", letterSpacing: "0.04em" }}>
+        {String(idx + 1).padStart(2, "0")}
+      </span>
+      <div>
+        <div style={{ fontSize: compact ? 16 : 19, fontWeight: 600, letterSpacing: "-0.01em" }}>
+          {item.label}
+        </div>
+        <div className="mono" style={{ fontSize: 11, color: "var(--muted)", marginTop: 3, letterSpacing: "0.02em" }}>
+          {item.kind}{item.meta && tweaks.showCounts ? ` — ${item.meta}` : ""}
+        </div>
+      </div>
+      <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        {tweaks.showCounts && tweaks.monoNumerals && (
+          <span className="mono" style={{ fontSize: 13, color: "var(--ink-2)", fontVariantNumeric: "tabular-nums" }}>
+            {item.n}
+          </span>
+        )}
+        <span style={{ fontSize: 14, color: hover ? "var(--accent)" : "var(--muted)", transform: hover ? "translateX(4px)" : "none", transition: "all 0.18s ease" }}>→</span>
+      </span>
+    </a>
+  );
+}
+
+// === Layout: Terminal ===
+function Terminal({ tweaks }) {
+  const [time, setTime] = useState(new Date());
+  useEffect(() => {
+    const t = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <div style={{ maxWidth: 720, margin: "0 auto", padding: "32px 20px" }}>
+      <div className="mono" style={{
+        background: "var(--card)",
+        border: "1px solid var(--rule)",
+        borderRadius: 8,
+        boxShadow: "var(--shadow)",
+        overflow: "hidden",
+      }}>
+        {/* Title bar */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", borderBottom: "1px solid var(--rule)", background: "var(--bg-2)" }}>
+          <span style={{ width: 11, height: 11, borderRadius: 11, background: "#ff5f57" }} />
+          <span style={{ width: 11, height: 11, borderRadius: 11, background: "#febc2e" }} />
+          <span style={{ width: 11, height: 11, borderRadius: 11, background: "#28c840" }} />
+          <span style={{ flex: 1, textAlign: "center", fontSize: 11, color: "var(--muted)" }}>~/zhgchgli — links — 80×24</span>
+        </div>
+
+        {/* Body */}
+        <div style={{ padding: "20px 22px 28px", fontSize: 13, lineHeight: 1.7, color: "var(--ink)" }}>
+          <Line prompt user="zhgchgli" host="taipei">whoami --verbose</Line>
+          <Block>
+            <KV k="handle" v={PROFILE.handle} accent />
+            <KV k="role  " v={PROFILE.role} />
+            <KV k="loc   " v={`${PROFILE.location} 🇹🇼`} />
+            <KV k="bio   " v={PROFILE.bio} />
+            {tweaks.showStatus && <KV k="status" v={PROFILE.status} ok />}
+          </Block>
+
+          <Line prompt user="zhgchgli" host="taipei">ls -la writing/</Line>
+          <Block>
+            {LINKS.filter(l => l.primary).map(l => <FileRow key={l.id} item={l} tweaks={tweaks} />)}
+          </Block>
+
+          <Line prompt user="zhgchgli" host="taipei">ls -la opensource/ | sort -nr -k5</Line>
+          <Block>
+            {LINKS.filter(l => !l.primary).map(l => <FileRow key={l.id} item={l} tweaks={tweaks} />)}
+          </Block>
+
+          <Line prompt user="zhgchgli" host="taipei">cat connect.txt</Line>
+          <Block>
+            {SOCIALS.map(s => (
+              <div key={s.id} style={{ display: "flex", gap: 12 }}>
+                <span style={{ color: "var(--accent-2)", width: 90 }}>{s.label.padEnd(10, " ")}</span>
+                <a href={s.url} target="_blank" rel="noopener" style={{ color: "var(--accent)", textDecoration: "none", borderBottom: "1px dashed currentColor" }}>{s.handle}</a>
+              </div>
+            ))}
+          </Block>
+
+          <Line prompt user="zhgchgli" host="taipei">tipjar --paypal</Line>
+          <Block>
+            <a href="https://www.paypal.com/ncp/payment/CMALMPT8UUTY2" target="_blank" rel="noopener"
+               style={{ display: "inline-block", padding: "8px 14px", background: "var(--ink)", color: "var(--bg)", textDecoration: "none", borderRadius: 4, fontSize: 12 }}>
+              🍺 buy_me_a_beer.sh →
+            </a>
+          </Block>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--muted)", fontSize: 12 }}>
+            <span style={{ color: "var(--accent-2)" }}>➜</span>
+            <span>last login: {time.toLocaleString()}</span>
+            <span className="cursor" style={{ display: "inline-block", width: 8, height: 14, background: "var(--ink)", animation: "blink 1.1s steps(1) infinite", marginLeft: 4 }} />
+          </div>
+        </div>
+      </div>
+
+      <style>{`@keyframes blink { 50% { opacity: 0; } }`}</style>
+    </div>
+  );
+}
+
+function Line({ children, user, host, prompt }) {
+  return (
+    <div style={{ marginTop: 14, marginBottom: 6 }}>
+      {prompt && (
+        <span>
+          <span style={{ color: "var(--accent-2)" }}>{user}@{host}</span>
+          <span style={{ color: "var(--muted)" }}>:</span>
+          <span style={{ color: "var(--accent)" }}>~</span>
+          <span style={{ color: "var(--muted)" }}>$ </span>
+        </span>
+      )}
+      <span>{children}</span>
+    </div>
+  );
+}
+function Block({ children }) {
+  return <div style={{ paddingLeft: 14, marginBottom: 4, color: "var(--ink-2)" }}>{children}</div>;
+}
+function KV({ k, v, accent, ok }) {
+  return (
+    <div style={{ display: "flex", gap: 14 }}>
+      <span style={{ color: "var(--muted)" }}>{k}</span>
+      <span style={{ color: "var(--muted)" }}>=</span>
+      <span style={{ color: accent ? "var(--accent)" : ok ? "var(--accent-2)" : "var(--ink)" }}>"{v}"</span>
+    </div>
+  );
+}
+function FileRow({ item, tweaks }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "auto 60px 1fr auto", gap: 14, alignItems: "baseline" }}>
+      <span style={{ color: "var(--muted)" }}>-rw-r--r--</span>
+      {tweaks.showCounts ? (
+        <span style={{ color: "var(--ink-2)", fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{item.n}</span>
+      ) : <span />}
+      <a href={item.url} target="_blank" rel="noopener" style={{ color: "var(--accent)", textDecoration: "none" }}>
+        {item.label}<span style={{ color: "var(--muted)" }}> — {item.kind}</span>
+      </a>
+      <span style={{ color: "var(--muted)", fontSize: 11 }}>{item.meta}</span>
+    </div>
+  );
+}
+
+// === Layout: Card Grid ===
+function CardGrid({ tweaks }) {
+  return (
+    <div style={{ maxWidth: 720, margin: "0 auto", padding: "44px 24px 64px" }}>
+      <div style={{ textAlign: "center", marginBottom: 40 }}>
+        <img src={PROFILE.avatar} alt="" style={{ width: 96, height: 96, borderRadius: "50%", objectFit: "cover", border: "3px solid var(--card)", boxShadow: "var(--shadow)" }} />
+        <h1 className="serif" style={{ margin: "16px 0 6px", fontSize: 32, fontWeight: 600, letterSpacing: "-0.01em" }}>{PROFILE.handle}</h1>
+        <div className="mono" style={{ fontSize: 11, color: "var(--ink-2)", letterSpacing: "0.12em", textTransform: "uppercase" }}>{PROFILE.role} · {PROFILE.location}</div>
+        <p style={{ maxWidth: 420, margin: "14px auto 0", color: "var(--ink-2)", fontSize: 14, lineHeight: 1.55 }}>{PROFILE.bio}</p>
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14 }}>
+        {LINKS.map((l, i) => (
+          <a key={l.id} href={l.url} target="_blank" rel="noopener"
+             style={{
+               padding: 18,
+               borderRadius: 12,
+               background: "var(--card)",
+               border: "1px solid var(--rule)",
+               boxShadow: "var(--shadow)",
+               textDecoration: "none",
+               color: "var(--ink)",
+               display: "flex",
+               flexDirection: "column",
+               gap: 10,
+               minHeight: 130,
+               position: "relative",
+               overflow: "hidden",
+             }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+              <span className="mono" style={{ fontSize: 11, color: "var(--muted)", letterSpacing: "0.08em" }}>{String(i + 1).padStart(2, "0")}</span>
+              {tweaks.showCounts && (
+                <span className="mono" style={{ fontSize: 11, padding: "3px 8px", background: "var(--bg-2)", borderRadius: 999, color: "var(--ink-2)" }}>
+                  {l.n}{l.primary ? "" : " ★"}
+                </span>
+              )}
+            </div>
+            <div style={{ marginTop: "auto" }}>
+              <div style={{ fontSize: 16, fontWeight: 600 }}>{l.label}</div>
+              <div className="mono" style={{ fontSize: 10, color: "var(--muted)", marginTop: 4, letterSpacing: "0.04em", textTransform: "uppercase" }}>{l.kind}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 32, flexWrap: "wrap" }}>
+        {SOCIALS.map(s => (
+          <a key={s.id} href={s.url} target="_blank" rel="noopener"
+             style={{ padding: "8px 14px", border: "1px solid var(--rule)", borderRadius: 999, fontSize: 13, color: "var(--ink)", textDecoration: "none", background: "var(--card)" }}>
+            {s.label}
+          </a>
+        ))}
+      </div>
+
+      <div style={{ textAlign: "center", marginTop: 28 }}>
+        <a href="https://www.paypal.com/ncp/payment/CMALMPT8UUTY2" target="_blank" rel="noopener"
+           style={{ display: "inline-block", padding: "10px 18px", background: "var(--ink)", color: "var(--bg)", textDecoration: "none", borderRadius: 999, fontSize: 13, fontWeight: 600 }}>
+          🍺 Buy me a beer
+        </a>
+      </div>
+
+      <div className="mono" style={{ textAlign: "center", marginTop: 36, fontSize: 11, color: "var(--muted)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+        © 2026 · Powered by linkyee
+      </div>
+    </div>
+  );
+}
+
+// === Tweaks Panel ===
+function TweaksPanel({ tweaks, setTweak, onClose }) {
+  const [pos, setPos] = useState({ x: 24, y: 24 });
+  const dragRef = useRef(null);
+  const dragging = useRef(null);
+  const onPointerDown = (e) => {
+    dragging.current = { sx: e.clientX, sy: e.clientY, ox: pos.x, oy: pos.y };
+    e.target.setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e) => {
+    if (!dragging.current) return;
+    setPos({ x: dragging.current.ox + (e.clientX - dragging.current.sx), y: dragging.current.oy + (e.clientY - dragging.current.sy) });
+  };
+  const onPointerUp = () => { dragging.current = null; };
+
+  return (
+    <div ref={dragRef} style={{
+      position: "fixed",
+      bottom: pos.y, right: pos.x,
+      width: 280,
+      background: "rgba(20,18,16,0.96)",
+      color: "#f3efe7",
+      borderRadius: 10,
+      boxShadow: "0 24px 60px rgba(0,0,0,0.4)",
+      backdropFilter: "blur(12px)",
+      zIndex: 9999,
+      fontFamily: "'Inter', sans-serif",
+      fontSize: 12,
+      overflow: "hidden",
+    }}>
+      <div onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp}
+           style={{ padding: "10px 14px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "grab", userSelect: "none" }}>
+        <span style={{ fontFamily: "'IBM Plex Mono'", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase" }}>Tweaks</span>
+        <button onClick={onClose} style={{ background: "none", border: "none", color: "#fff", cursor: "pointer", opacity: 0.6, fontSize: 14 }}>×</button>
+      </div>
+      <div style={{ padding: 14, display: "flex", flexDirection: "column", gap: 14 }}>
+        <Field label="Layout">
+          <Segmented value={tweaks.layout} onChange={(v) => setTweak("layout", v)}
+                     options={[{v:"editorial",l:"Editorial"},{v:"terminal",l:"Terminal"},{v:"cards",l:"Cards"}]} />
+        </Field>
+        <Field label="Theme">
+          <Segmented value={tweaks.theme} onChange={(v) => setTweak("theme", v)}
+                     options={[{v:"paper",l:"Paper"},{v:"midnight",l:"Midnight"},{v:"zinc",l:"Zinc"}]} />
+        </Field>
+        <Field label="Show meta counts">
+          <Toggle on={tweaks.showCounts} onChange={(v) => setTweak("showCounts", v)} />
+        </Field>
+        <Field label="Show status pill">
+          <Toggle on={tweaks.showStatus} onChange={(v) => setTweak("showStatus", v)} />
+        </Field>
+      </div>
+    </div>
+  );
+}
+function Field({ label, children }) {
+  return (
+    <div>
+      <div style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.55, marginBottom: 6, fontFamily: "'IBM Plex Mono'" }}>{label}</div>
+      {children}
+    </div>
+  );
+}
+function Segmented({ value, onChange, options }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: `repeat(${options.length}, 1fr)`, gap: 4, padding: 3, background: "rgba(255,255,255,0.06)", borderRadius: 7 }}>
+      {options.map(o => (
+        <button key={o.v} onClick={() => onChange(o.v)}
+                style={{
+                  padding: "6px 4px",
+                  background: value === o.v ? "rgba(255,255,255,0.14)" : "transparent",
+                  color: "inherit",
+                  border: "none",
+                  borderRadius: 5,
+                  fontSize: 11,
+                  cursor: "pointer",
+                  fontWeight: value === o.v ? 600 : 400,
+                }}>
+          {o.l}
+        </button>
+      ))}
+    </div>
+  );
+}
+function Toggle({ on, onChange }) {
+  return (
+    <button onClick={() => onChange(!on)}
+            style={{ width: 34, height: 20, borderRadius: 999, border: "none", cursor: "pointer", background: on ? "oklch(58% 0.13 38)" : "rgba(255,255,255,0.18)", position: "relative", transition: "background 0.15s" }}>
+      <span style={{ position: "absolute", top: 2, left: on ? 16 : 2, width: 16, height: 16, borderRadius: 16, background: "#fff", transition: "left 0.15s" }} />
+    </button>
+  );
+}
+
+// === App ===
+function App() {
+  const [tweaks, setTweaks] = useState(TWEAK_DEFAULTS);
+  const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    document.body.setAttribute("data-theme", tweaks.theme);
+  }, [tweaks.theme]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.type === "__activate_edit_mode") setEditMode(true);
+      if (e.data?.type === "__deactivate_edit_mode") setEditMode(false);
+    };
+    window.addEventListener("message", handler);
+    window.parent.postMessage({ type: "__edit_mode_available" }, "*");
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
+  const setTweak = (k, v) => {
+    const next = { ...tweaks, [k]: v };
+    setTweaks(next);
+    window.parent.postMessage({ type: "__edit_mode_set_keys", edits: { [k]: v } }, "*");
+  };
+  const closePanel = () => {
+    setEditMode(false);
+    window.parent.postMessage({ type: "__edit_mode_dismissed" }, "*");
+  };
+
+  return (
+    <div className="page">
+      {tweaks.layout === "editorial" && <Editorial tweaks={tweaks} />}
+      {tweaks.layout === "terminal" && <Terminal tweaks={tweaks} />}
+      {tweaks.layout === "cards" && <CardGrid tweaks={tweaks} />}
+      {editMode && <TweaksPanel tweaks={tweaks} setTweak={setTweak} onClose={closePanel} />}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
