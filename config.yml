@@ -38,6 +38,27 @@ name: "@zhgchgli"
 tagline: >-
     An iOS, web, and automation developer from Taiwan 🇹🇼 who also loves sharing, traveling, and writing.
 
+# Featured app, shown above the links
+featured_app:
+  name: "TripEZGo"
+  kind: "Travel planner &amp; itinerary"
+  platforms: "IPHONE · IPAD · FREE"
+  icon: "./images/tripezgo/icon.png"
+  headline: "Plan the trip, carry what it needs — all in one app"
+  pitch: "A travel planner and itinerary app for iPhone and iPad. No sign-up, works offline, and it’s free."
+  points:
+    - "Plan days on a calendar"
+    - "Map each route"
+    - "Co-edit with travel companions"
+  screenshots:
+    - src: "./images/tripezgo/shot-01.webp"
+      alt: "TripEZGo day view: a trip day laid out on a calendar timeline with travel legs between events"
+    - src: "./images/tripezgo/shot-02.webp"
+      alt: "TripEZGo overview: the whole trip on one page with events, files and to-dos"
+  app_store_url: "https://apps.apple.com/app/id6801536372"
+  website_url: "https://tripezgo.com/en/"
+  website_text: "tripezgo.com →"
+
 # List of links
 # icon: Use Font Awesome icons (https://fontawesome.com/search?o=r&m=free)
 # text: The displayed text for the link

@@ -56,6 +56,45 @@
       <p class="masthead-bio">{{ tagline }}</p>
     </header>
 
+    {% if featured_app %}
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-label mono">Featured / My App</h2>
+        <span class="section-count mono">{{ featured_app.platforms }}</span>
+      </div>
+      <article class="app-feature">
+        <div class="app-feature-body">
+          <div class="app-feature-brand">
+            <img src="{{ featured_app.icon }}" width="180" height="180" alt="{{ featured_app.name }} app icon" class="app-feature-icon" />
+            <div>
+              <div class="app-feature-name serif">{{ featured_app.name }}</div>
+              <div class="app-feature-kind mono">{{ featured_app.kind }}</div>
+            </div>
+          </div>
+          <h3 class="app-feature-title serif">{{ featured_app.headline }}</h3>
+          <p class="app-feature-pitch">{{ featured_app.pitch }}</p>
+          <ol class="app-feature-points">
+            {% for point in featured_app.points %}
+              <li><span class="mono">{{ forloop.index | prepend: '00' | slice: -2, 2 }}</span>{{ point }}</li>
+            {% endfor %}
+          </ol>
+        </div>
+        <div class="app-feature-shots" aria-label="{{ featured_app.name }} screenshots">
+          {% for shot in featured_app.screenshots %}
+            <img src="{{ shot.src }}" width="660" height="1434" loading="lazy" alt="{{ shot.alt }}" />
+          {% endfor %}
+        </div>
+        <div class="app-feature-actions">
+          <a href="{{ featured_app.app_store_url }}" target="_blank" rel="noopener" class="app-feature-cta">
+            <i class="fa-brands fa-apple" aria-hidden="true"></i>
+            <span>Download on the App Store</span>
+          </a>
+          <a href="{{ featured_app.website_url }}" target="_blank" rel="noopener" class="app-feature-link mono">{{ featured_app.website_text }}</a>
+        </div>
+      </article>
+    </section>
+    {% endif %}
+
     <section class="section">
       <div class="section-head">
         <h2 class="section-label mono">01 / Links</h2>
